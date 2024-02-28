@@ -393,7 +393,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     }var f,
         d = function () {
       if (r.documentMode) return r.documentMode;for (var e = 7; e > 4; e--) {
-        var t = r.createElement("div");if (t.innerHTML = "<!--[if IE " + e + "]><span></span><![endif]-->", t.getElementsByTagName("span").length) return t = null, e;
+        var t = r.createElement("div");
+        var conditionalComment = "<!--[if IE " + e + "]><span></span><![endif]-->";
+        t.textContent = conditionalComment;
+        if (t.getElementsByTagName("span").length) return t = null, e;
       }return a;
     }(),
         g = function () {
@@ -2847,7 +2850,8 @@ if (jQuery) {
 
         // Create Text span
         if (allowHtml) {
-          tooltipText = $('<span></span>').html(tooltipText);
+          tooltipText = $('<span></span>').text(tooltipText);
+
         } else {
           tooltipText = $('<span></span>').text(tooltipText);
         }
@@ -3441,7 +3445,8 @@ if (jQuery) {
 
           // Insert as text;
         } else {
-          toast.innerHTML = this.message;
+          toast.textContent = this.message;
+
         }
 
         // Append toasft
