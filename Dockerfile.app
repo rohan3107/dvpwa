@@ -1,5 +1,7 @@
 FROM python:alpine3.8
 
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
 RUN apk add --no-cache wget \
     && wget -O /usr/bin/wait-for https://raw.githubusercontent.com/eficode/wait-for/master/wait-for \
     && chmod +x /usr/bin/wait-for \
@@ -18,3 +20,5 @@ WORKDIR /app
 ADD ./run.py /app
 ADD ./sqli /app/sqli
 ADD ./config /app/config
+
+USER appuser
