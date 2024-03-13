@@ -8,7 +8,7 @@ from sqli.app import init as init_app
 log = logging.getLogger(__name__)
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
 
     app = init_app(sys.argv[1:])
 
