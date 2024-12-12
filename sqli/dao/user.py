@@ -1,6 +1,5 @@
-from hashlib import md5
 from typing import NamedTuple, Optional
-
+from hashlib import pbkdf2_hmac
 from aiopg import Connection
 
 
@@ -38,4 +37,6 @@ class User(NamedTuple):
             return User.from_raw(await cur.fetchone())
 
     def check_password(self, password: str):
-        return self.pwd_hash == md5(password.encode('utf-8')).hexdigest()
+        salt = b'fixedsalt'  # replace with dynamically generated salt in real implementations
+        hashed_pwd = pbkdf2_hmac('sha256', password.encode('utf-8'), salt, 100000)
+        return self.pwd_hash == hashed_pwd.hex()
